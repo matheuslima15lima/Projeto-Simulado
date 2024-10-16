@@ -21,7 +21,7 @@ namespace sistema.Controllers
             if(professor != null)
             {
                 HttpContext.Session.SetInt32("ProfessorId",professor.ProfessorId);
-                HttpContext.Session.SetString("Nome", professor.Nome!);
+                HttpContext.Session.SetString("NomeProfessor", professor.Nome!);
                 return RedirectToAction("Index", "Professor");
 
             }

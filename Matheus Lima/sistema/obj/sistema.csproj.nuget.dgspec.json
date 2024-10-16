@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\46447568812\\Desktop\\Matheus Lima\\sistema\\sistema.csproj": {}
+    "C:\\Users\\46447568812\\Desktop\\Projeto-Simulado\\Matheus Lima\\sistema\\sistema.csproj": {}
   },
   "projects": {
-    "C:\\Users\\46447568812\\Desktop\\Matheus Lima\\sistema\\sistema.csproj": {
+    "C:\\Users\\46447568812\\Desktop\\Projeto-Simulado\\Matheus Lima\\sistema\\sistema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\46447568812\\Desktop\\Matheus Lima\\sistema\\sistema.csproj",
+        "projectUniqueName": "C:\\Users\\46447568812\\Desktop\\Projeto-Simulado\\Matheus Lima\\sistema\\sistema.csproj",
         "projectName": "sistema",
-        "projectPath": "C:\\Users\\46447568812\\Desktop\\Matheus Lima\\sistema\\sistema.csproj",
+        "projectPath": "C:\\Users\\46447568812\\Desktop\\Projeto-Simulado\\Matheus Lima\\sistema\\sistema.csproj",
         "packagesPath": "C:\\Users\\46447568812\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\46447568812\\Desktop\\Matheus Lima\\sistema\\obj\\",
+        "outputPath": "C:\\Users\\46447568812\\Desktop\\Projeto-Simulado\\Matheus Lima\\sistema\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

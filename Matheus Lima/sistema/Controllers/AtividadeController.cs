@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using sistema.Contexts;
+using sistema.Models;
 
 namespace sistema.Controllers
 {
@@ -12,22 +14,46 @@ namespace sistema.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int turmaId)
         {
-            int? atividadeId = HttpContext.Session.GetInt32("AtividadeId");
-            int? turmaId = HttpContext.Session.GetInt32("turmaId");
-            if(atividadeId == null)
+
+
+
+            var atividades = _context.Atividades
+                .Include(a => a.Turma)
+                .Where(a => a.TurmaId == turmaId).ToList();
+            var turma = _context.Turmas .FirstOrDefault(t=> t.TurmaId == turmaId);
+            ViewBag.Turma = turmaId;
+            ViewBag.NomeTurma = turma!.Nome;
+
+            ViewBag.Model = atividades;
+
+            ViewBag.NomeProfessor = HttpContext.Session.GetString("NomeProfessor");
+           return View(atividades);
+        }
+
+
+        [HttpPost]
+
+        public IActionResult CadastrarAtividade (int turmaId, string descricao) {
+            var turma = _context.Turmas.FirstOrDefault(t=> t.TurmaId==turmaId);
+
+            if(turma == null)
             {
-                return RedirectToAction("Index", "Login");
+                return View();
             }
 
-            var turmas = _context.Turmas.Find(turmaId);
+            var novaAtividade = new Atividade
+            {
+                TurmaId = turmaId,
+                Descricao = descricao
+            };
 
-            var atividades = _context.Atividades.Where(a=> a.TurmaId == turmaId).ToList();
+            _context.Atividades.Add(novaAtividade);
 
-            ViewBag.DescricaoAtividade = atividades!.descr
+            _context.SaveChanges();
 
-           
+            return RedirectToAction("Index", new {turmaId});
         }
     }
 }
