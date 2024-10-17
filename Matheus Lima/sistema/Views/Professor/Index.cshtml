@@ -3,21 +3,18 @@
     ViewData["Title"] = "Principal";
 }
 
-@*cabecalho*@
-<div style="display:flex">
-<h3>@ViewBag.NomeProfessor</h3>
-<form asp-controller="Login" asp-action="Logout">
-    <button type="submit">Sair</button>
-</form>
-</div>
+ @*cabecalho*@
+
 
 @*cadastrar turma*@
 
-   
-    <button type="submit" data-bs-toggle="modal" data-bs-target="#cadastrarTurma">Cadastrar turma</button>
+<div class="mt-5  w-100 d-flex justify-content-end">
+<button class="border-2 btn btn-outline-primary" type="submit" data-bs-toggle="modal" data-bs-target="#cadastrarTurma">Cadastrar turma</button>
+</div>
 
 
 @*titulo*@
+<h1>Sua lista de turmas</h1>
 
 
 @if(ViewBag.NomeProfessor == null)
@@ -27,14 +24,14 @@
 else
 {
     @*tabela*@
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 <th scope="row">Número</th>
                 <th>Nome da turma</th>
                 <th>Ações</th>
             </tr>
-            <li/>
+         
         </thead>
 
         <tbody>
@@ -45,14 +42,15 @@ else
                     <td>@turma.Nome</td>
                     <td>
                         <div style="display:flex">
-                            <form asp-controller="Professor" asp-action="ExcluirTurma" onsubmit="return confirm('Você tem cereteza que deseja excluir essa turma?')">
+                            <form asp-controller="Professor" asp-action="ExcluirTurma">
                                 <input type="hidden" name="turmaId" value="@turma.TurmaId" />
-                                <button type="submit">Excluir</button>
+                                <button class="btn" type="button" style="text-decoration: underline; text-decoration-color: red; color:red"
+                                        data-bs-toggle="modal" data-bs-target="#excluirTurma">Excluir</button>
                             </form>
 
                             <form asp-controller="Atividade" asp-action="Index" asp-route-turmaId="@turma.TurmaId">
                                 <input type="hidden" name="turmaId" value="@turma.TurmaId" />
-                                <button type="submit">Visualizar</button>
+                                <button class="btn" type="submit" style="text-decoration: underline; text-decoration-color:green; color:green">Visualizar</button>
                             </form>
                         </div>
 
@@ -91,5 +89,43 @@ else
             </div>
         </div>
     </div>
+
+
+    @*Codigo do modal*@
+    <div class="modal" tabindex="-1" id="excluirTurma">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Excluir Turma</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+              @*   <form asp-controller="Professor" asp-action="ExcluirTurma">
+                    <div class="modal-body">
+                        <label>Nome da Turma</label>
+                        <input hidden type="text" name="nomeTurma" class="form-control" value="@ViewBag.Turma" required />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </div>
+                </form> *@
+
+                <form asp-controller="Professor" asp-action="ExcluirTurma" method="post">
+                    <div class="modal-body">
+                        <label>Nome da Turma</label>
+                        <input type="hidden" name="turmaId" value="@ViewBag.Turma" />
+                        <input type="text" name="nomeTurma" class="form-control" value="@ViewBag.TurmaNome" readonly />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+   
 
 }

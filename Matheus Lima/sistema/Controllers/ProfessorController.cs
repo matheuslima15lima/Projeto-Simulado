@@ -29,6 +29,8 @@ namespace sistema.Controllers
 
             ViewBag.NomeProfessor = professor!.Nome;
 
+
+
             return View(turmas);
         }
 
@@ -48,24 +50,54 @@ namespace sistema.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index");
+            
         }
+
+        //[HttpPost]
+        //public IActionResult ExcluirTurma(int turmaId)
+        //{
+        //    var turma = _context.Turmas.Include(t => t.Atividades).FirstOrDefault(t=> t.TurmaId == turmaId);
+
+        //    if (turma!.Atividades.Any())
+        //    {
+        //        TempData["Mensagem"] = "Você não pode excluir uma turma com atividades";
+
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    _context.Turmas.Remove(turma);
+
+        //    _context.SaveChanges();
+
+        //    return RedirectToAction("Index");
+        //}
+
 
         [HttpPost]
         public IActionResult ExcluirTurma(int turmaId)
         {
-            var turma = _context.Turmas.Include(t => t.Atividades).FirstOrDefault(t=> t.TurmaId == turmaId);
+            // Tente encontrar a turma pelo ID
+            var turma = _context.Turmas.Include(t => t.Atividades).FirstOrDefault(t => t.TurmaId == turmaId);
 
-            if (turma!.Atividades.Any())
+            // Verifique se a turma foi encontrada
+            if (turma == null)
             {
-                TempData["Mensagem"] = "Você não pode excluir uma turma com atividades";
-
+                TempData["Mensagem"] = "Turma não encontrada.";
                 return RedirectToAction("Index");
             }
 
-            _context.Turmas.Remove(turma);
+            // Verifica se a turma tem atividades
+            if (turma.Atividades.Any())
+            {
+                TempData["Mensagem"] = "Você não pode excluir uma turma com atividades.";
+                return RedirectToAction("Index");
+            }
 
+            // Remove a turma
+            _context.Turmas.Remove(turma);
             _context.SaveChanges();
 
+            TempData["Mensagem"] = "Turma excluída com sucesso.";
             return RedirectToAction("Index");
         }
     }

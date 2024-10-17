@@ -5,21 +5,21 @@
 @* kkkkkkK *@
 
 @* cabeçalho *@
-<div style="display: flex">
-    <h3>@ViewBag.NomeProfessor</h3>
-    <form asp-controller="Login" asp-action="Logout">
-        <button type="submit">Sair</button>
-    </form>
-</div>
+
 
 @* cadastrar atv *@
 
-<form asp-controller="Atividade" asp-action="CadastrarAtividade">
+@* <form asp-controller="Atividade" asp-action="CadastrarAtividade">
     <input type="hidden" name="turmaId" value="@ViewBag.TurmaId" />
     <input type="text" name="descricao" placeholder="Nome" required />
     <label>Nome da atividade</label>
     <button type="submit">Cadastrar </button>
-</form>
+</form> *@
+
+
+<div class="mt-5  w-100 d-flex justify-content-end">
+    <button class="border-2 btn btn-outline-primary" type="submit" data-bs-toggle="modal" data-bs-target="#cadastrarAtividade">Cadastrar Atividade</button>
+</div>
 
 @* título *@
 
@@ -30,7 +30,7 @@
     <thead>
         <tr>
             <th scope="col">Número</th>
-            <th>Nome da Atividade</th>
+            <th scope="col">Nome da Atividade</th>
         </tr>
     </thead>
     <tbody>
@@ -43,3 +43,28 @@
         }
     </tbody>
 </table>
+
+@*Codigo do modal*@
+<div class="modal" tabindex="-1" id="cadastrarAtividade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Cadastrar Atividade</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form asp-controller="Atividade" asp-action="CadastrarAtividade" method="post">
+                <div class="modal-body">
+                    <input hidden type="text" name="turmaId" class="form-control" value="@ViewBag.Turma" required />
+
+                    <label>Nome da Turma</label>
+                    <input type="text" name="descricao" class="form-control" required />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
